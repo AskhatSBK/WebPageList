@@ -74,7 +74,7 @@ app.post('/edit/:id',async(req,res)=>{
         }
 });
 // Delete user by resending it on deleting page and auto update general page (didnt finish)
-app.post('/delete/:id',async(req,res)=>{
+app.get('/delete/:id',async(req,res)=>{
     try{
         const {id} = req.params;
         await User.findByIdAndDelete(id)
