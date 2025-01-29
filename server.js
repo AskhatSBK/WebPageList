@@ -2,6 +2,7 @@ const express=require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { name } = require('ejs');
 
 const app = express();
 
@@ -35,6 +36,7 @@ const User = mongoose.model('User',userSchema);
 app.get('/add',async(req,res)=> {
     res.render('add');
 });
+
 // Return to main page after creating new user
 app.post('/users',async(req,res)=> {
     try {
@@ -46,6 +48,7 @@ app.post('/users',async(req,res)=> {
         res.status(500).send('Error creating user')
     }
 });
+
 //First render page for display all data
 app.get('/',async(req,res)=> {
     try{
@@ -56,12 +59,31 @@ app.get('/',async(req,res)=> {
     }
 });
 
-app.get('/edit/:id', async (req, res) => {
-    const user = await User.findById(req.params.id);
-    res.render('edit', { user });
+//Search users by name
+app.post('/',async(req,res)=> {
+    try{
+        const {searchName} = req.body;
+        const users = searchName
+        ? await User.find({ name: searchName.trim() })  // If Sname exists, search exactly by name
+        : await User.find();
+        res.render('index',{users});
+    } catch(err){
+        res.status(500).send('Error find users')
+    }
 });
 
-// Update user parameters (need to correct)
+//Redirect to edit page
+app.get('/edit/:id', async (req, res) => {
+    try{
+        const user = await User.findById(req.params.id);
+        res.render('edit', { user });
+    } catch(err){
+        res.status(500).send('Error render edit')
+    }
+    
+});
+
+// Update user parameters
 app.post('/edit/:id',async(req,res)=>{
         try{
             const {id} = req.params;
@@ -70,7 +92,7 @@ app.post('/edit/:id',async(req,res)=>{
             console.log(`User ${id} updated successfully`);
             res.redirect('/');
         } catch(err){
-            res.status(500).send('Error deleting user')
+            res.status(500).send('Error editing user')
         }
 });
 // Delete user by resending it on deleting page and auto update general page (didnt finish)

@@ -12,7 +12,11 @@
     </style>
 </head>
 <body>
-        <p class="h1 text-center">SE-2323 Group list</p>
+    <p class="h1 text-center">SE-2323 Group list</p>
+    <form action="/" method="POST" class="d-flex justify-content-center">
+        <input type="text" id="searchName" name="searchName">
+        <button type="submit" style="display: inline;" class="btn btn-primary">Search</button>
+    </form>
     <ul class="list-group w-50 mx-auto mt-4">
         <% users.forEach(user =>{ %>
             <li class="list-group-item">
@@ -23,6 +27,8 @@
             </li>
         <% }); %>
     </ul>
-    <a href="/add" style="-ms-flex-align: center;" class="btn btn-success btn-sm ms-3">Add New Student</a>
+    <div class="d-flex justify-content-center mt-3">
+        <a href="/add" class="btn btn-success btn-sm ms-3">Add New Student</a>
+    </div>
 </body>
 </html>
