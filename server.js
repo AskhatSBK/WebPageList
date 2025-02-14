@@ -269,7 +269,7 @@ app.post('/forgot-password', async (req, res) => {
   await admin.save();
 
   // Send email with reset link
-  const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+  const resetUrl = `https://goruplist.onrender.com/reset-password/${resetToken}`;
   const mailOptions = {
       to: admin.email,
       from: process.env.EMAIL,
