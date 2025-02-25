@@ -53,7 +53,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
     name: String,
     age: Number,
     gender: Boolean,
@@ -83,7 +83,7 @@ adminSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-const User = mongoose.model('User',userSchema)
+const Student = mongoose.model('Student', studentSchema);
 const Admin = mongoose.model('Admin', adminSchema);
 
 //Requires admin
@@ -98,23 +98,23 @@ const requireLogin = (req, res, next) => {
 //First render page for display all data
 app.get('/',async(req,res)=> {
     try{
-        const users = await User.find();
-        res.render('index',{users, session: req.session});
+        const students = await Student.find();
+        res.render('index',{students, session: req.session});
     } catch(err){
-        res.status(500).send('Error fetching users')
+        res.status(500).send('Error fetching students')
     }
 });
 
-//Search users by name
+//Search students by name
 app.post('/',async(req,res)=> {
     try{
         const {searchName} = req.body;
-        const users = searchName
-        ? await User.find({ name: searchName.trim() })  // If Sname exists, search exactly by name
-        : await User.find();
-        res.render('index',{users, session: req.session});
+        const students = searchName
+        ? await Student.find({ name: searchName.trim() })  // If Sname exists, search exactly by name
+        : await Student.find();
+        res.render('index',{students: students, session: req.session});
     } catch(err){
-        res.status(500).send('Error find users')
+        res.status(500).send('Error find students')
     }
 });
 
@@ -126,20 +126,20 @@ app.get('/add', requireLogin, async(req,res)=> {
 // Return to main page after creating new user
 app.post('/add', requireLogin, async(req,res)=> {
     try {
-        const {name,age,gender}=req.body;
-        const newUser = new User({name,gender,age})
-        await newUser.save();
+        const {name,age,gender} = req.body;
+        const newStudent = new Student({name,gender,age})
+        await newStudent.save();
         res.redirect('/')
     } catch(err){
-        res.status(500).send('Error creating user')
+        res.status(500).send('Error creating student')
     }
 });
 
 //Redirect to edit page
 app.get('/edit/:id', requireLogin, async (req, res) => {
     try{
-        const user = await User.findById(req.params.id);
-        res.render('edit', { user });
+        const student = await Student.findById(req.params.id);
+        res.render('edit', { student });
     } catch(err){
         res.status(500).send('Error render edit')
     }
@@ -151,8 +151,8 @@ app.post('/edit/:id', requireLogin, async(req,res)=>{
         try{
             const {id} = req.params;
             const {name,gender,age} = req.body;
-            await User.findByIdAndUpdate(id, {name,gender,age});
-            console.log(`User ${id} updated successfully`);
+            await Student.findByIdAndUpdate(id, {name,gender,age});
+            console.log(`Student ${id} updated successfully`);
             res.redirect('/');
         } catch(err){
             res.status(500).send('Error editing user')
@@ -163,11 +163,11 @@ app.post('/edit/:id', requireLogin, async(req,res)=>{
 app.get('/delete/:id', requireLogin, async(req,res)=>{
     try{
         const {id} = req.params;
-        await User.findByIdAndDelete(id)
-        console.log(`User ${id} delete successfully`);
+        await Student.findByIdAndDelete(id)
+        console.log(`Student ${id} delete successfully`);
         res.redirect('/');
     }catch(err){
-        res.status(500).send('Error deleting user')
+        res.status(500).send('Error deleting student')
     }
 });
 
@@ -237,6 +237,10 @@ app.post('/login', async (req, res) => {
   } catch (err) {
       res.redirect('/login?error=Error logging in');
   }
+});
+
+app.get('/account', (req, res) => {
+  res.render('account', {session: req.session});
 });
 
 

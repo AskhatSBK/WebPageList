@@ -25,7 +25,8 @@
             <div class="col-md-3 text-end">
                 <% if (session.admin) { %>
                     <p class="text-muted mb-1">Logged in as: <strong><%= session.admin.username %></strong></p>
-                    <a href="/logout" class="btn btn-outline-danger">Logout</a>
+                    <a href="/logout" class="btn btn-outline-danger me-2">Logout</a>
+                    <a href="/account" class="btn btn-outline-primary me-2">Account</a>
                 <% } else { %>
                     <a href="/login" class="btn btn-outline-primary me-2">Login</a>
                     <a href="/register" class="btn btn-outline-success me-2">Register</a>
@@ -35,13 +36,13 @@
     </div>
     <div class="container mt-5">
     <ul class="list-group w-50 mx-auto mt-4">
-        <% users.forEach(user => { %>
+        <% students.forEach(student => { %>
             <li class="list-group-item">
-                <strong><%= user.name %></strong>: <%= user.age %>
-                (<%= user.gender ? 'Male' : 'Female' %>)
+                <strong><%= student.name %></strong>: <%= student.age %>
+                (<%= student.gender ? 'Male' : 'Female' %>)
                 <% if (session.admin) { %>
-                    <a href="/delete/<%= user.id %>" class="btn btn-danger btn-sm ms-3">Delete</a>
-                    <a href="/edit/<%= user.id %>" class="btn btn-warning btn-sm ms-3">Edit</a>
+                    <a href="/delete/<%= student.id %>" class="btn btn-danger btn-sm ms-3">Delete</a>
+                    <a href="/edit/<%= student.id %>" class="btn btn-warning btn-sm ms-3">Edit</a>
                 <% } %>
             </li>
         <% }); %>
