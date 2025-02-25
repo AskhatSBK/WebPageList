@@ -9,16 +9,16 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Student EDIT Form:</h1>
-        <form action="/edit/<%= user.id %>" method="POST" class="w-50 mx-auto border p-4 shadow-sm rounded">
+        <form action="/edit/<%= student.id %>" method="POST" class="w-50 mx-auto border p-4 shadow-sm rounded">
             <!-- Name -->
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name"  value="<%= user.name %>" required>
+                <input type="text" class="form-control" id="name" name="name"  value="<%= student.name %>" required>
             </div>
             <!-- Age -->
             <div class="mb-3">
                 <label for="age" class="form-label">Age</label>
-                <input type="number" class="form-control" id="age" name="age"  value="<%= user.age %>" required>
+                <input type="number" class="form-control" id="age" name="age"  value="<%= student.age %>" required>
             </div>
             <!-- Gender -->
             <div class="mb-3">
