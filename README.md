@@ -79,6 +79,3 @@ git push heroku main
 ## License
 This project is licensed under the **MIT License**.
 
-## Contact
-For any issues, feel free to open an issue or contact [your-email@example.com](mailto:your-email@example.com).
-
