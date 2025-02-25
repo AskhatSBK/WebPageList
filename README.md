@@ -12,9 +12,8 @@ This is a web application for managing student data, built as part of the SE-232
 5. [API Documentation](#api-documentation)
 6. [Advanced Features](#advanced-features)
 7. [Project Structure](#project-structure)
-8. [Contributing](#contributing)
-9. [License](#license)
-10. [Acknowledgments](#acknowledgments)
+8. [License](#license)
+9. [Acknowledgments](#acknowledgments)
 
 ---
 
@@ -251,12 +250,6 @@ views/ - Contains EJS templates
   account.ejs - Account management page
 public/ - Static files (CSS, JS, etc.)
 ```
-
----
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
 ---
 
